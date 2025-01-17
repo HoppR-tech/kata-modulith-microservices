@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Kata Modulith
+  jpa:
+    hibernate:
+      ddl-auto: none # it is liquibase job
+    properties:
+      hibernate:
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: UTC
