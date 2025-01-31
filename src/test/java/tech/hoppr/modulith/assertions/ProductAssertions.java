@@ -2,8 +2,8 @@ package tech.hoppr.modulith.assertions;
 
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
-import tech.hoppr.modulith.model.Product;
-import tech.hoppr.modulith.model.Quantity;
+import tech.hoppr.modulith.inventory.model.Product;
+import tech.hoppr.modulith.shared.Quantity;
 
 @RequiredArgsConstructor
 public class ProductAssertions {

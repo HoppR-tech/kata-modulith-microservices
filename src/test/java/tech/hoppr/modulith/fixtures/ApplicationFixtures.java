@@ -1,7 +1,7 @@
 package tech.hoppr.modulith.fixtures;
 
-import tech.hoppr.modulith.model.OrderId;
-import tech.hoppr.modulith.model.ProductRef;
+import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.ProductRef;
 
 public class ApplicationFixtures {
 
