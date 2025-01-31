@@ -12,6 +12,8 @@ import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.order.model.OrderPlaced;
+import tech.hoppr.modulith.shared.MessageBus;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 import tech.hoppr.modulith.order.repository.OrderRepository;
@@ -40,7 +42,7 @@ public class PlaceOrderTests {
 	@Autowired
 	OrderRepository orders;
 	@MockitoBean
-	InventoryService inventoryService;
+	MessageBus messageBus;
 
 	@BeforeEach
 	void setUp() {
@@ -69,21 +71,14 @@ public class PlaceOrderTests {
 			.satisfies(item -> assertThat(item)
 				.hasProductRef(ProductRef.of("123"))
 				.hasQuantity(Quantity.of(2)));
-	}
 
-	@Test
-	void call_inventory_to_reduce_the_amount_of_products() {
-		placeOrder();
-
-		ArgumentCaptor<List<Item>> captor = ArgumentCaptor.forClass(List.class);
-		verify(inventoryService).decrement(captor.capture());
-
-		List<Item> actualItems = captor.getValue();
-
-		assertThat(actualItems).first()
-			.satisfies(item -> assertThat(item)
-				.hasProductRef(ProductRef.of("123"))
-				.hasQuantity(Quantity.of(2)));
+		verify(messageBus).emit(OrderPlaced.builder()
+			.orderId(ORDER_ID)
+			.items(List.of(Item.builder()
+				.product(PRODUCT_REF)
+				.quantity(Quantity.of(2))
+				.build()))
+			.build());
 	}
 
 

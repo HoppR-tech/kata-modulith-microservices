@@ -9,9 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.inventory.model.Product;
+import tech.hoppr.modulith.inventory.repository.InventoryRepository;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
-import tech.hoppr.modulith.inventory.repository.InventoryRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
