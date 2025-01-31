@@ -16,11 +16,4 @@ import java.util.List;
 public final class Order {
     private final OrderId id;
     private final List<Item> items;
-
-    public static Order create(List<Item> items) {
-        return Order.builder()
-                .id(OrderId.generate())
-                .items(items)
-                .build();
-    }
 }

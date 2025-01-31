@@ -7,35 +7,48 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
-import java.util.UUID;
+import lombok.ToString;
+import lombok.With;
 
 @IdClass(OrderItemEntity.PK.class)
-@Table(name = "ORDER_ITEM")
+@Table(name = "order_items")
 @Entity
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@With
+@AllArgsConstructor
 @Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = "order")
 public class OrderItemEntity {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="ORDER_ID", referencedColumnName="ID")
+    @JoinColumn(name="order_id", referencedColumnName="ID", insertable = false, updatable = false)
+	@EqualsAndHashCode.Include
     private OrderEntity order;
 
     @Id
-    @Column(name = "PRODUCT_REF")
-    private UUID productRef;
+    @Column(name = "product_ref")
+	@EqualsAndHashCode.Include
+    private String productRef;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "quantity")
     private int quantity;
 
     @RequiredArgsConstructor
+	@EqualsAndHashCode
+	@ToString
     @Getter
     public static class PK {
         private OrderEntity order;
-        private UUID productRef;
+        private String productRef;
     }
 
 }

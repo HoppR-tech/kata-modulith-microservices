@@ -1,22 +1,22 @@
 -- liquibase formatted sql
 
-CREATE TABLE "ORDER"
+CREATE TABLE "orders"
 (
-	"ID" UUID PRIMARY KEY
+	"id" VARCHAR(26) PRIMARY KEY
 );
 
-CREATE TABLE "ORDER_ITEM"
+CREATE TABLE "order_items"
 (
-	"ORDER_ID"    UUID NOT NULL,
-	"PRODUCT_REF" UUID NOT NULL,
-	"QUANTITY"    INT  NOT NULL,
-	PRIMARY KEY ("ORDER_ID", "PRODUCT_REF"),
-	FOREIGN KEY ("ORDER_ID") REFERENCES "ORDER" ("ID") ON DELETE CASCADE
+	"order_id"    VARCHAR(26) NOT NULL,
+	"product_ref" VARCHAR(26) NOT NULL,
+	"quantity"    INT  NOT NULL,
+	PRIMARY KEY ("order_id", "product_ref"),
+	FOREIGN KEY ("order_id") REFERENCES "orders" ("id") ON DELETE CASCADE
 );
 
-CREATE TABLE "INVENTORY"
+CREATE TABLE "inventories"
 (
-	"PRODUCT_REF" UUID PRIMARY KEY,
-	"QUANTITY"    INT  NOT NULL
+	"product_ref" VARCHAR(26) PRIMARY KEY,
+	"quantity"    INT  NOT NULL
 );
 

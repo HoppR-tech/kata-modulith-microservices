@@ -4,19 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.RequiredArgsConstructor;
-
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "INVENTORY")
-@RequiredArgsConstructor
+@Table(name = "inventories")
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
 public class InventoryEntity {
 
     @Id
-    @Column(name = "PRODUCT_REF")
-    private UUID productRef;
-    @Column(name = "QUANTITY")
+    @Column(name = "product_ref")
+	@EqualsAndHashCode.Include
+    private String productRef;
+    @Column(name = "quantity")
     private int quantity;
 
 }
