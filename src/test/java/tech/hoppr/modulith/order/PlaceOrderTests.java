@@ -2,7 +2,6 @@ package tech.hoppr.modulith.order;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -13,16 +12,14 @@ import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.model.OrderPlaced;
+import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.order.service.OrderService;
 import tech.hoppr.modulith.shared.MessageBus;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
-import tech.hoppr.modulith.order.repository.OrderRepository;
-import tech.hoppr.modulith.inventory.service.InventoryService;
-import tech.hoppr.modulith.order.service.OrderService;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.hoppr.modulith.assertions.ItemAssertions.assertThat;
@@ -74,8 +71,8 @@ public class PlaceOrderTests {
 
 		verify(messageBus).emit(OrderPlaced.builder()
 			.orderId(ORDER_ID)
-			.items(List.of(Item.builder()
-				.product(PRODUCT_REF)
+			.items(List.of(OrderPlaced.Item.builder()
+				.productRef(PRODUCT_REF)
 				.quantity(Quantity.of(2))
 				.build()))
 			.build());

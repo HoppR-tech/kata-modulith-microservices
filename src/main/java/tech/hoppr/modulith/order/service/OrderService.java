@@ -25,8 +25,17 @@ public class OrderService {
 
         messageBus.emit(OrderPlaced.builder()
 			.orderId(order.id())
-			.items(order.items())
+			.items(toItems(order))
 			.build());
     }
+
+	private static List<OrderPlaced.Item> toItems(Order order) {
+		return order.items().stream()
+			.map(item -> OrderPlaced.Item.builder()
+				.productRef(item.product())
+				.quantity(item.quantity())
+				.build())
+			.toList();
+	}
 
 }

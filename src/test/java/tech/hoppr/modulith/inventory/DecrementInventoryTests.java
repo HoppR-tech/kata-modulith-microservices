@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.inventory.model.Product;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
-import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.OrderPlaced;
 import tech.hoppr.modulith.shared.MessageBus;
 import tech.hoppr.modulith.shared.ProductRef;
@@ -38,8 +37,8 @@ public class DecrementInventoryTests {
 
 		messageBus.emit(OrderPlaced.builder()
 			.orderId(ORDER_ID)
-			.items(List.of(Item.builder()
-				.product(ProductRef.of("123"))
+			.items(List.of(OrderPlaced.Item.builder()
+				.productRef(ProductRef.of("123"))
 				.quantity(Quantity.of(2))
 				.build()))
 			.build());
