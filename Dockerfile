@@ -1,33 +1,21 @@
-# Étape 1 : Utilisation d'une image de base JDK pour compiler et créer le JAR
-FROM eclipse-temurin:21-jdk-alpine as build
-
-# Définir le répertoire de travail
-WORKDIR /app
-
-# Copier le fichier pom.xml (ou build.gradle) pour permettre au Docker de résoudre les dépendances avant de copier tout le projet
+FROM maven:3.9.9-eclipse-temurin-21-alpine as DEPENDENCIES
 COPY pom.xml .
-
-# Télécharger les dépendances Maven (ou Gradle)
-RUN apk add maven
 RUN mvn dependency:go-offline
 
-# Copier l'ensemble du projet (le code source et les fichiers de configuration)
-COPY . .
-
-# Construire le fichier JAR avec Maven
+FROM maven:3.9.9-eclipse-temurin-21-alpine as build
+ARG SERVICE_PATH
+WORKDIR /build
+COPY --from=DEPENDENCIES /root/.m2 /root/.m2
+COPY pom.xml .
+COPY shared shared
+WORKDIR /build/app
+COPY ${SERVICE_PATH}/pom.xml .
+RUN mvn dependency:go-offline
+COPY ${SERVICE_PATH}/. .
 RUN mvn clean package -DskipTests
 
-# Étape 2 : Créer l'image finale en utilisant un JRE plus léger
 FROM eclipse-temurin:21-jre-alpine
-
-# Définir le répertoire de travail
 WORKDIR /app
-
-# Copier le fichier JAR généré dans l'image finale
-COPY --from=build /app/target/*.jar /app/app.jar
-
-# Exposer le port que l'application Spring Boot va utiliser
+COPY --from=build /build/app/target/*.jar ./app.jar
 EXPOSE 8080
-
-# Commande pour démarrer l'application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

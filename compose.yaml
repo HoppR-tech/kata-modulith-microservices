@@ -1,36 +1,98 @@
+version: '3.8'
+name: les_ms_cest_la_kata
+
 services:
-    spring-app:
+    rabbitmq:
+        image: "rabbitmq:3-management-alpine"
+        container_name: rabbitmq
+        ports:
+            - "15672:15672"   # RabbitMQ Management UI
+            - "5672:5672"     # RabbitMQ Messaging Port
+        environment:
+            RABBITMQ_DEFAULT_USER: user
+            RABBITMQ_DEFAULT_PASS: password
+            RABBITMQ_SERVER_STARTUP_TIMEOUT: 60000
+            MESSAGE_BUS_USE: rabbitmq
+        networks:
+            - app-network
+        volumes:
+            - rabbitmq-data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmq
+
+    order:
         build:
             context: .
-        container_name: app
+            args:
+                SERVICE_PATH: ./order
+        container_name: order-service
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://order-db:5432/order_db
+            SPRING_DATASOURCE_USERNAME: order_user
+            SPRING_DATASOURCE_PASSWORD: order_password
+            SPRING_JPA_HIBERNATE_DDL_AUTO: update
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_RABBITMQ_USERNAME: user
+            SPRING_RABBITMQ_PASSWORD: password
+            MESSAGE_BUS_USE: rabbitmq
         ports:
             - "8080:8080"
-        environment:
-            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydb
-            SPRING_DATASOURCE_USERNAME: user
-            SPRING_DATASOURCE_PASSWORD: password
-            SPRING_JPA_HIBERNATE_DDL_AUTO: update
         depends_on:
-            - db
+            - order-db
+            - rabbitmq
         networks:
             - app-network
 
-    db:
-        image: postgres:13
-        container_name: db
+    order-db:
+        image: "postgres:13"
+        container_name: order-db
         environment:
-            POSTGRES_DB: mydb
-            POSTGRES_USER: user
-            POSTGRES_PASSWORD: password
+            POSTGRES_USER: order_user
+            POSTGRES_PASSWORD: order_password
+            POSTGRES_DB: order_db
         volumes:
-            - db-data:/var/lib/postgresql/data
+            - order-db-data:/var/lib/postgresql/data
         networks:
             - app-network
 
+    inventory:
+        build:
+            context: .
+            args:
+                SERVICE_PATH: ./inventory
+        container_name: inventory-service
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventory_db
+            SPRING_DATASOURCE_USERNAME: inventory_user
+            SPRING_DATASOURCE_PASSWORD: inventory_password
+            SPRING_JPA_HIBERNATE_DDL_AUTO: update
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_RABBITMQ_USERNAME: user
+            SPRING_RABBITMQ_PASSWORD: password
+        depends_on:
+            - order
+            - inventory-db
+            - rabbitmq
+        networks:
+            - app-network
+
+    inventory-db:
+        image: "postgres:13"
+        container_name: inventory-db
+        environment:
+            POSTGRES_USER: inventory_user
+            POSTGRES_PASSWORD: inventory_password
+            POSTGRES_DB: inventory_db
+        volumes:
+            - inventory-db-data:/var/lib/postgresql/data
+        networks:
+            - app-network
+
+# Volumes to persist data
+volumes:
+    order-db-data:
+    inventory-db-data:
+    rabbitmq-data:
+
+# Network for all services
 networks:
     app-network:
         driver: bridge
-
-volumes:
-    db-data:
-        driver: local
