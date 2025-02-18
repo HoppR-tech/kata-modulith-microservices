@@ -8,12 +8,19 @@
 	<groupId>tech.hoppr</groupId>
 	<artifactId>modulith</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<properties>
 		<java.version>21</java.version>
 		<spring-boot-dependencies.version>3.4.1</spring-boot-dependencies.version>
 		<spring-modulith.version>1.3.1</spring-modulith.version>
 	</properties>
+
+	<modules>
+		<module>shared</module>
+		<module>order</module>
+		<module>inventory</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -94,6 +101,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- AMQP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Spring Modulith Runtime dependencies -->
 		<dependency>
 			<groupId>org.springframework.modulith</groupId>
@@ -156,7 +170,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot-dependencies.version}</version>
 				<configuration>
-					<mainClass>tech.hoppr.modulith.ModulithApplication</mainClass>
+					<mainClass>tech.hoppr.ModulithApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>
