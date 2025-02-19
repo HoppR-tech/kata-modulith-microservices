@@ -1,11 +1,11 @@
-FROM maven:3.9.9-eclipse-temurin-21-alpine as DEPENDENCIES
+FROM maven:3.9.9-eclipse-temurin-21-alpine as dependencies
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
 FROM maven:3.9.9-eclipse-temurin-21-alpine as build
 ARG SERVICE_PATH
 WORKDIR /build
-COPY --from=DEPENDENCIES /root/.m2 /root/.m2
+COPY --from=dependencies /root/.m2 /root/.m2
 COPY pom.xml .
 COPY shared shared
 WORKDIR /build/app

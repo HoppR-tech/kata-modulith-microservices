@@ -21,10 +21,14 @@ public class OrderPlacedListener {
 
 	@RabbitListener(queues = "order.placed")
 	public void handle(String message) {
-		log.info("Event received: {}", message);
-		OrderPlaced event = deserializer.deserialize(message, OrderPlaced.class);
-		Products products = toProducts(event.items());
-		inventoryService.decrement(products);
+		try {
+			log.info("Event received: {}", message);
+			OrderPlaced event = deserializer.deserialize(message, OrderPlaced.class);
+			Products products = toProducts(event.items());
+			inventoryService.decrement(products);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 	}
 
 	private Products toProducts(List<OrderPlaced.Item> items) {
