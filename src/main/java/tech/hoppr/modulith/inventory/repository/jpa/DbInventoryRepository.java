@@ -1,11 +1,12 @@
 package tech.hoppr.modulith.inventory.repository.jpa;
 
 import lombok.RequiredArgsConstructor;
+import tech.hoppr.modulith.inventory.model.Products;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.inventory.model.Product;
 import tech.hoppr.modulith.shared.ProductRef;
-import tech.hoppr.modulith.inventory.model.Products;
+import tech.hoppr.modulith.inventory.model.ReserveProducts;
 import tech.hoppr.modulith.shared.Quantity;
 import tech.hoppr.modulith.inventory.model.Reservation;
 
@@ -36,9 +37,9 @@ public class DbInventoryRepository implements InventoryRepository {
 			return Optional.empty();
 		}
 
-		Products.ProductsBuilder builder = Products.builder();
+		Products.Builder builder = Products.builder();
 		entities.forEach(entity ->
-			builder.addProduct(
+			builder.product(
 				ProductRef.of(entity.getProductRef()),
 				Quantity.of(entity.getQuantity())
 			));

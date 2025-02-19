@@ -1,17 +1,25 @@
 package tech.hoppr.modulith.inventory.model;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import tech.hoppr.modulith.order.model.OrderId;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 @Builder
-public record Reservation(OrderId orderId, Products products) {
+@Accessors(fluent = true)
+public final class Reservation {
 
-	public static Reservation create(OrderId orderId, Products products) {
+	@Getter
+	private final OrderId orderId;
+	private final Products products;
+
+	public static Reservation create(OrderId orderId, List<Product> products) {
 		return Reservation.builder()
 			.orderId(orderId)
-			.products(products)
+			.products(Products.from(products))
 			.build();
 	}
 

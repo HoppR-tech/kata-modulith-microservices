@@ -10,6 +10,7 @@ import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.inventory.service.InventoryService;
 import tech.hoppr.modulith.order.service.OrderFactory;
 import tech.hoppr.modulith.order.service.OrderService;
+import tech.hoppr.modulith.shared.MessageBus;
 
 @Configuration
 public class OrderConfiguration {
@@ -30,8 +31,8 @@ public class OrderConfiguration {
 	}
 
 	@Bean
-	OrderService orderService(OrderFactory factory, OrderRepository orders, InventoryService inventoryService) {
-		return new OrderService(factory, orders, inventoryService);
+	OrderService orderService(OrderFactory factory, OrderRepository orders, MessageBus messageBus) {
+		return new OrderService(factory, orders, messageBus);
 	}
 
 }

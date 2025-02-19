@@ -1,26 +1,17 @@
 package tech.hoppr.modulith.inventory.model;
 
+import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
-public final class Products {
+public record ReserveProducts(OrderId orderId, List<Product> products) {
 
-	private final List<Product> products;
-
-	public Products(List<Product> products) {
+	public ReserveProducts(OrderId orderId, List<Product> products) {
+		this.orderId = orderId;
 		this.products = List.copyOf(products);
-	}
-
-	public static Products from(List<Product> products) {
-		return new Products(products);
-	}
-
-	public Stream<Product> stream() {
-		return products.stream();
 	}
 
 	public static Builder builder() {
@@ -29,16 +20,23 @@ public final class Products {
 
 	public static final class Builder {
 
-		private final List<Product> products = new ArrayList<>();
+		private OrderId orderId;
+		private List<Product> products = new ArrayList<>();
+
+		public Builder orderId(OrderId orderId) {
+			this.orderId = orderId;
+			return this;
+		}
 
 		public Builder product(ProductRef productRef, Quantity quantity) {
 			this.products.add(new Product(productRef, quantity));
 			return this;
 		}
 
-		public Products build() {
-			return new Products(products);
+		public ReserveProducts build() {
+			return new ReserveProducts(orderId, products);
 		}
 
 	}
+
 }

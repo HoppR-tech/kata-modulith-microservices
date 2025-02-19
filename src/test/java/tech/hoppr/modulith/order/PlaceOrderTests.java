@@ -2,7 +2,6 @@ package tech.hoppr.modulith.order;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -12,22 +11,21 @@ import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.order.model.OrderPlaced;
+import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.order.service.OrderService;
+import tech.hoppr.modulith.shared.MessageBus;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
-import tech.hoppr.modulith.order.repository.OrderRepository;
-import tech.hoppr.modulith.inventory.service.InventoryService;
-import tech.hoppr.modulith.order.service.OrderService;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tech.hoppr.modulith.assertions.ItemAssertions.assertThat;
-import static tech.hoppr.modulith.assertions.OrderAssertions.assertThat;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.ORDER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
+import static tech.hoppr.modulith.order.assertions.ItemAssertions.assertThat;
+import static tech.hoppr.modulith.order.assertions.OrderAssertions.assertThat;
 
 @Transactional
 @SpringBootTest
@@ -41,7 +39,7 @@ public class PlaceOrderTests {
 	@Autowired
 	OrderRepository orders;
 	@MockitoBean
-	InventoryService inventoryService;
+	MessageBus messageBus;
 
 	@BeforeEach
 	void setUp() {
@@ -70,22 +68,18 @@ public class PlaceOrderTests {
 			.satisfies(item -> assertThat(item)
 				.hasProductRef(ProductRef.of("123"))
 				.hasQuantity(Quantity.of(2)));
+
+		orderPlacedShouldBeEmitted();
 	}
 
-	@Test
-	void call_inventory_to_reduce_the_reserve_products() {
-		placeOrder();
-
-		ArgumentCaptor<List<Item>> captor = ArgumentCaptor.forClass(List.class);
-		verify(inventoryService).reserve(eq(ORDER_ID), captor.capture());
-
-		List<Item> actualItems = captor.getValue();
-
-		assertThat(actualItems).first()
-			.satisfies(item -> assertThat(item)
-				.hasProductRef(ProductRef.of("123"))
-				.hasQuantity(Quantity.of(2)));
+	private void orderPlacedShouldBeEmitted() {
+		verify(messageBus).emit(OrderPlaced.builder()
+			.orderId(ORDER_ID)
+			.item(Item.builder()
+				.product(PRODUCT_REF)
+				.quantity(Quantity.of(2))
+				.build())
+			.build());
 	}
-
 
 }

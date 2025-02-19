@@ -2,11 +2,12 @@ package tech.hoppr.modulith.order.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import tech.hoppr.modulith.inventory.service.InventoryService;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.order.model.OrderPlaced;
 import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.shared.MessageBus;
 
 import java.util.List;
 
@@ -14,15 +15,20 @@ import java.util.List;
 public class OrderService {
 
 	private final OrderFactory factory;
-    private final OrderRepository orders;
-    private final InventoryService inventoryService;
+	private final OrderRepository orders;
+	private final MessageBus messageBus;
 
-    @Transactional
-    public OrderId placeOrder(List<Item> items) {
+	@Transactional
+	public OrderId placeOrder(List<Item> items) {
 		Order order = factory.create(items);
-        orders.save(order);
-        inventoryService.reserve(order.id(), items);
+		orders.save(order);
+
+		messageBus.emit(OrderPlaced.builder()
+			.orderId(order.id())
+			.items(order.items())
+			.build());
+
 		return order.id();
-    }
+	}
 
 }

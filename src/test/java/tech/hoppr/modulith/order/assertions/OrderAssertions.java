@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.assertions;
+package tech.hoppr.modulith.order.assertions;
 
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
