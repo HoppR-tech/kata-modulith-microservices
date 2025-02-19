@@ -1,12 +1,13 @@
 package tech.hoppr.modulith.repository.inventory;
 
-import tech.hoppr.modulith.model.Product;
-import tech.hoppr.modulith.model.ProductRef;
+import tech.hoppr.modulith.model.OrderId;
+import tech.hoppr.modulith.model.Reservation;
+
+import java.util.Optional;
 
 public interface InventoryRepository {
 
-	Product getBy(ProductRef ref);
+	void save(Reservation reservation);
 
-	void save(Product product);
-
+	Optional<Reservation> reservationOf(OrderId orderId);
 }

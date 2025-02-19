@@ -2,13 +2,13 @@ package tech.hoppr.modulith.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tech.hoppr.modulith.model.Item;
+import tech.hoppr.modulith.model.OrderId;
 import tech.hoppr.modulith.service.OrderService;
 
 import java.util.List;
@@ -24,9 +24,10 @@ public class OrderController {
 
 	@PostMapping("/place")
 	@ResponseStatus(code = ACCEPTED)
-	public void placeOrder(@RequestBody @Valid PlaceOrderDto request) {
+	public PlaceOrderResponse placeOrder(@RequestBody @Valid PlaceOrderRequest request) {
 		List<Item> items = request.toDomain();
-		orderService.placeOrder(items);
+		OrderId orderId = orderService.placeOrder(items);
+		return new PlaceOrderResponse(orderId.value());
 	}
 
 }

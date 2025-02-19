@@ -6,7 +6,7 @@ import tech.hoppr.modulith.model.Item;
 
 import java.util.List;
 
-public record PlaceOrderDto(@Valid @NotEmpty List<ItemDto> items) {
+public record PlaceOrderRequest(@Valid @NotEmpty List<ItemDto> items) {
 
 	public List<Item> toDomain() {
 		return items.stream()

@@ -20,6 +20,7 @@ import tech.hoppr.modulith.service.OrderService;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.hoppr.modulith.assertions.ItemAssertions.assertThat;
@@ -71,11 +72,11 @@ public class PlaceOrderTests {
 	}
 
 	@Test
-	void call_inventory_to_reduce_the_amount_of_products() {
+	void call_inventory_to_reduce_the_reserve_products() {
 		placeOrder();
 
 		ArgumentCaptor<List<Item>> captor = ArgumentCaptor.forClass(List.class);
-		verify(inventoryService).decrement(captor.capture());
+		verify(inventoryService).reserve(eq(ORDER_ID), captor.capture());
 
 		List<Item> actualItems = captor.getValue();
 

@@ -6,11 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.hoppr.modulith.entity.EntityPersister;
-import tech.hoppr.modulith.entity.InventoryEntity;
+import tech.hoppr.modulith.entity.ReservationEntity;
 import tech.hoppr.modulith.entity.OrderEntity;
 import tech.hoppr.modulith.model.OrderId;
 import tech.hoppr.modulith.repository.inventory.DbInventoryRepository;
 import tech.hoppr.modulith.repository.inventory.InventoryRepository;
+import tech.hoppr.modulith.repository.inventory.JpaInventories;
 import tech.hoppr.modulith.repository.order.DbOrderRepository;
 import tech.hoppr.modulith.repository.order.OrderRepository;
 import tech.hoppr.modulith.service.InventoryService;
@@ -39,7 +40,7 @@ public class ApplicationConfiguration {
     }
 
 	@Bean
-	InventoryRepository inventoryRepository(JpaRepository<InventoryEntity, String> jpa) {
+	InventoryRepository inventoryRepository(JpaInventories jpa) {
 		return new DbInventoryRepository(jpa);
 	}
 

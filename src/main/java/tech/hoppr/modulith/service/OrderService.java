@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.model.Item;
 import tech.hoppr.modulith.model.Order;
+import tech.hoppr.modulith.model.OrderId;
 import tech.hoppr.modulith.repository.order.OrderRepository;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class OrderService {
     private final InventoryService inventoryService;
 
     @Transactional
-    public void placeOrder(List<Item> items) {
+    public OrderId placeOrder(List<Item> items) {
 		Order order = factory.create(items);
         orders.save(order);
-
-        inventoryService.decrement(items);
+        inventoryService.reserve(order.id(), items);
+		return order.id();
     }
 
 }
