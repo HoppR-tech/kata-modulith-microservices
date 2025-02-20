@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.bean.override.convention.TestBean;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.TestcontainersConfiguration;
@@ -18,6 +19,9 @@ import tech.hoppr.modulith.shared.MessageBus;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
@@ -32,14 +36,22 @@ import static tech.hoppr.modulith.order.assertions.OrderAssertions.assertThat;
 @Import(TestcontainersConfiguration.class)
 public class PlaceOrderTests {
 
+	static final Instant FIXED_NOW = Instant.ofEpochMilli(1234567890L);
+
 	@MockitoBean
 	OrderId.Provider idProvider;
+	@TestBean
+	Clock clock;
 	@Autowired
 	OrderService orderService;
 	@Autowired
 	OrderRepository orders;
 	@MockitoBean
 	MessageBus messageBus;
+
+	static Clock clock() {
+		return Clock.fixed(FIXED_NOW, ZoneId.of("UTC"));
+	}
 
 	@BeforeEach
 	void setUp() {
@@ -62,7 +74,9 @@ public class PlaceOrderTests {
 	void place_an_order() {
 		Order actualOrder = placeOrder();
 
-		assertThat(actualOrder).hasAnId();
+		assertThat(actualOrder)
+			.hasId(ORDER_ID)
+			.isPlacedSince(Instant.ofEpochMilli(1234567890L));
 
 		assertThat(actualOrder).items().first()
 			.satisfies(item -> assertThat(item)
@@ -79,6 +93,7 @@ public class PlaceOrderTests {
 				.product(PRODUCT_REF)
 				.quantity(Quantity.of(2))
 				.build())
+			.placedAt(FIXED_NOW)
 			.build());
 	}
 

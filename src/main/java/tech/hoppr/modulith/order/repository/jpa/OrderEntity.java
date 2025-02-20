@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -23,23 +24,36 @@ import java.util.List;
 @Getter
 public class OrderEntity {
 
+	@Id
+	@Column(name = "id")
+	@EqualsAndHashCode.Include
+	private String id;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "order_id")
+	private List<OrderItemEntity> items;
+
+	@Column(name = "placed_at")
+	private Timestamp placedAt;
+
+	@Column(name = "cancelled_at")
+	private Timestamp cancelledAt;
+
 	@Builder(toBuilder = true)
-	public OrderEntity(String id, List<OrderItemEntity> items) {
+	public OrderEntity(
+		String id,
+		List<OrderItemEntity> items,
+		Timestamp placedAt,
+		Timestamp cancelledAt
+	) {
 		this.id = id;
 		this.items = items == null
 			? List.of()
 			: items.stream()
 			.map(item -> item.withOrder(this))
 			.toList();
+		this.placedAt = placedAt;
+		this.cancelledAt = cancelledAt;
 	}
-
-	@Id
-	@Column(name = "id")
-	@EqualsAndHashCode.Include
-	private String id;
-
-    @OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id")
-    private List<OrderItemEntity> items;
 
 }

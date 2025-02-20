@@ -9,6 +9,10 @@ import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class DbOrderRepository implements OrderRepository {
 
@@ -27,6 +31,10 @@ public class DbOrderRepository implements OrderRepository {
 			.items(entity.getItems().stream()
 				.map(this::toItem)
 				.toList())
+			.placedAt(entity.getPlacedAt().toInstant())
+			.cancelledAt(Optional.ofNullable(entity.getCancelledAt())
+				.map(Timestamp::toInstant)
+				.orElse(null))
 			.build();
 	}
 
@@ -51,6 +59,10 @@ public class DbOrderRepository implements OrderRepository {
 			.items(order.items().stream()
 				.map(this::toItemEntity)
 				.toList())
+			.placedAt(Timestamp.from(order.placedAt()))
+			.cancelledAt(order.cancelledAt()
+				.map(Timestamp::from)
+				.orElse(null))
 			.build();
 	}
 

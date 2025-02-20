@@ -2,9 +2,7 @@ package tech.hoppr.modulith.shared;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class SpringMessageBus implements MessageBus {
 
