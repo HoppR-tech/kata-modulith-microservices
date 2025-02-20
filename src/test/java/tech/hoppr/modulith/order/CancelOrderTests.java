@@ -2,6 +2,7 @@ package tech.hoppr.modulith.order;
 
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.TestcontainersConfiguration;
+import tech.hoppr.modulith.fixtures.CleanupDatabaseAfterEach;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderCancelled;
@@ -34,6 +36,7 @@ import static tech.hoppr.modulith.order.assertions.OrderAssertions.assertThat;
 @Transactional
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
+@ExtendWith(CleanupDatabaseAfterEach.class)
 public class CancelOrderTests {
 
 	static final Instant PLACED_AT = Instant.ofEpochMilli(0);

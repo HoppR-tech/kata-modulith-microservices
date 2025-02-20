@@ -50,6 +50,11 @@ public class DbInventoryRepository implements InventoryRepository {
 			.build());
 	}
 
+	@Override
+	public void deleteForOrder(OrderId orderId) {
+		jpa.deleteAllByOrderId(orderId.value());
+	}
+
 	private static ReservationEntity toEntity(Product product, String orderId) {
 		return ReservationEntity.builder()
 			.orderId(orderId)

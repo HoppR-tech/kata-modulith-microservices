@@ -2,8 +2,9 @@ package tech.hoppr.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import tech.hoppr.modulith.inventory.model.ReserveProducts;
+import tech.hoppr.modulith.inventory.model.CancelReservation;
 import tech.hoppr.modulith.inventory.model.Reservation;
+import tech.hoppr.modulith.inventory.model.ReserveProducts;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
 
 @RequiredArgsConstructor
@@ -17,4 +18,8 @@ public class InventoryService {
 		inventories.save(reservation);
     }
 
+	@Transactional
+	public void handle(CancelReservation command) {
+		inventories.deleteForOrder(command.orderId());
+	}
 }

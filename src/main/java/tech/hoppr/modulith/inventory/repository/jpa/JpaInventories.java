@@ -10,4 +10,6 @@ public interface JpaInventories extends JpaRepository<ReservationEntity, String>
 
 	List<ReservationEntity> findAllByOrderId(String orderId);
 
+	void deleteAllByOrderId(String orderId);
+
 }

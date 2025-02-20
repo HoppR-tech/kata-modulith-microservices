@@ -10,4 +10,6 @@ public interface InventoryRepository {
 	void save(Reservation reservation);
 
 	Optional<Reservation> reservationOf(OrderId orderId);
+
+    void deleteForOrder(OrderId orderId);
 }

@@ -2,6 +2,7 @@ package tech.hoppr.modulith.inventory.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import tech.hoppr.modulith.order.model.OrderId;
 
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 
 @Builder
 @Accessors(fluent = true)
+@ToString
 public final class Reservation {
 
 	@Getter

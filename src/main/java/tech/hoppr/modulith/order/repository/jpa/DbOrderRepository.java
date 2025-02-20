@@ -10,7 +10,6 @@ import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 
 @RequiredArgsConstructor

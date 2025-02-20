@@ -2,6 +2,7 @@ package tech.hoppr.modulith.order;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -9,6 +10,7 @@ import org.springframework.test.context.bean.override.convention.TestBean;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.TestcontainersConfiguration;
+import tech.hoppr.modulith.fixtures.CleanupDatabaseAfterEach;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
@@ -34,6 +36,7 @@ import static tech.hoppr.modulith.order.assertions.OrderAssertions.assertThat;
 @Transactional
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
+@ExtendWith(CleanupDatabaseAfterEach.class)
 public class PlaceOrderTests {
 
 	static final Instant FIXED_NOW = Instant.ofEpochMilli(1234567890L);

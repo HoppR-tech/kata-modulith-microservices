@@ -1,5 +1,7 @@
 package tech.hoppr.modulith.inventory.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@EqualsAndHashCode
+@ToString
 public final class Products {
 
 	private final List<Product> products;

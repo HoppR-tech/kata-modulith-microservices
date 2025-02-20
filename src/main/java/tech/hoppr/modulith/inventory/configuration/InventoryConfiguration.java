@@ -2,9 +2,10 @@ package tech.hoppr.modulith.inventory.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tech.hoppr.modulith.inventory.listener.OrderCancelledListener;
 import tech.hoppr.modulith.inventory.listener.OrderPlacedListener;
-import tech.hoppr.modulith.inventory.repository.jpa.DbInventoryRepository;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.inventory.repository.jpa.DbInventoryRepository;
 import tech.hoppr.modulith.inventory.repository.jpa.JpaInventories;
 import tech.hoppr.modulith.inventory.service.InventoryService;
 
@@ -24,6 +25,11 @@ public class InventoryConfiguration {
 	@Bean
 	OrderPlacedListener orderPlacedListener(InventoryService inventoryService) {
 		return new OrderPlacedListener(inventoryService);
+	}
+
+	@Bean
+	OrderCancelledListener orderCancelledListener(InventoryService inventoryService) {
+		return new OrderCancelledListener(inventoryService);
 	}
 
 }
