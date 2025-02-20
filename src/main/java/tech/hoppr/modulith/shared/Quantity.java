@@ -2,8 +2,10 @@ package tech.hoppr.modulith.shared;
 
 public record Quantity(int value) {
 
-	public Quantity decrement(int value) {
-		return Quantity.of(this.value - value);
+	public static final Quantity ZERO = Quantity.of(0);
+
+	public Quantity sum(Quantity other) {
+		return Quantity.of(this.value + other.value);
 	}
 
 	public static Quantity of(int value) {

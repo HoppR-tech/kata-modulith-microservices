@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.order;
+package tech.hoppr.modulith;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,10 +10,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.fixtures.CleanupDatabaseAfterEach;
 import tech.hoppr.modulith.inventory.model.Reservation;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.loyalty.model.Loyalty;
+import tech.hoppr.modulith.loyalty.repository.LoyaltyRepository;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.service.OrderService;
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static tech.hoppr.modulith.fixtures.ApplicationFixtures.CUSTOMER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.ORDER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF_2;
@@ -40,6 +42,8 @@ class OrderIntegrationTest {
 	OrderId.Provider idProvider;
 	@Autowired
 	InventoryRepository inventories;
+	@Autowired
+	LoyaltyRepository loyalties;
 	@Autowired
 	WebTestClient client;
 	@Autowired
@@ -58,6 +62,7 @@ class OrderIntegrationTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue("""
 				{
+					"customerId": "CUSTOMER_ID",
 					"items": [
 						{ "productRef": "123", "quantity": 2},
 						{ "productRef": "456", "quantity": 3}
@@ -73,6 +78,7 @@ class OrderIntegrationTest {
 			""");
 		exchange.expectStatus().is2xxSuccessful();
 
+		// Inventory assertion
 		Optional<Reservation> actualReservation = inventories.reservationOf(ORDER_ID);
 
 		assertThat(actualReservation).isPresent().get()
@@ -81,14 +87,20 @@ class OrderIntegrationTest {
 				.products()
 				.contains(PRODUCT_REF, Quantity.of(2))
 				.contains(PRODUCT_REF_2, Quantity.of(3)));
+
+		// Loyalty assertion
+		Loyalty loyalty = loyalties.ofCustomer(CUSTOMER_ID);
+		assertThat(loyalty.total()).isEqualTo(50);
 	}
 
 	@Test
 	void cancel_an_order() {
-		orderService.placeOrder(List.of(Item.builder()
-			.product(PRODUCT_REF)
-			.quantity(QTY_TEN)
-			.build()));
+		orderService.placeOrder(
+			CUSTOMER_ID,
+			List.of(Item.builder()
+				.product(PRODUCT_REF)
+				.quantity(QTY_TEN)
+				.build()));
 
 		WebTestClient.ResponseSpec exchange = client.post()
 			.uri("/orders/cancel/FR001")
@@ -97,8 +109,13 @@ class OrderIntegrationTest {
 
 		exchange.expectStatus().isNoContent();
 
+		// Inventory
 		Optional<Reservation> actualReservation = inventories.reservationOf(ORDER_ID);
 		assertThat(actualReservation).isEmpty();
+
+		// Loyalty assertion
+		Loyalty loyalty = loyalties.ofCustomer(CUSTOMER_ID);
+		assertThat(loyalty.total()).isEqualTo(0);
 	}
 
 }

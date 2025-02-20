@@ -6,6 +6,7 @@ import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.shared.CustomerId;
 import tech.hoppr.modulith.shared.MessageBus;
 
 import java.time.Clock;
@@ -21,8 +22,8 @@ public class OrderService {
 	private final Clock clock;
 
 	@Transactional
-	public OrderId placeOrder(List<Item> items) {
-		Order order = factory.create(items);
+	public OrderId placeOrder(CustomerId customerId, List<Item> items) {
+		Order order = factory.create(customerId, items);
 		saveAndEmit(order);
 		return order.id();
 	}

@@ -28,6 +28,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static tech.hoppr.modulith.fixtures.ApplicationFixtures.CUSTOMER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.ORDER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
 import static tech.hoppr.modulith.order.assertions.ItemAssertions.assertThat;
@@ -63,12 +64,13 @@ public class PlaceOrderTests {
 	}
 
 	private Order placeOrder() {
-		orderService.placeOrder(List.of(
-			Item.builder()
+		orderService.placeOrder(
+			CUSTOMER_ID,
+			List.of(Item.builder()
 				.product(PRODUCT_REF)
 				.quantity(Quantity.of(2))
 				.build()
-		));
+			));
 
 		return orders.getBy(ORDER_ID);
 	}
@@ -92,6 +94,7 @@ public class PlaceOrderTests {
 	private void orderPlacedShouldBeEmitted() {
 		verify(messageBus).emit(OrderPlaced.builder()
 			.orderId(ORDER_ID)
+			.customerId(CUSTOMER_ID)
 			.item(Item.builder()
 				.product(PRODUCT_REF)
 				.quantity(Quantity.of(2))

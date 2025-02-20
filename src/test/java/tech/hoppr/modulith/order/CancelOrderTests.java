@@ -28,6 +28,7 @@ import java.time.temporal.ChronoUnit;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static tech.hoppr.modulith.fixtures.ApplicationFixtures.CUSTOMER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.ORDER_ID;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
 import static tech.hoppr.modulith.fixtures.ApplicationFixtures.QTY_TEN;
@@ -56,6 +57,7 @@ public class CancelOrderTests {
 	void setUp() {
 		orders.save(Order.builder()
 			.id(ORDER_ID)
+			.customerId(CUSTOMER_ID)
 			.item(Item.builder()
 				.product(PRODUCT_REF)
 				.quantity(QTY_TEN)
@@ -82,6 +84,7 @@ public class CancelOrderTests {
 	private void orderCancelledShouldBeEmitted(Instant cancelledAt) {
 		verify(messageBus).emit(OrderCancelled.builder()
 			.orderId(ORDER_ID)
+			.customerId(CUSTOMER_ID)
 			.cancelledAt(cancelledAt)
 			.build());
 	}

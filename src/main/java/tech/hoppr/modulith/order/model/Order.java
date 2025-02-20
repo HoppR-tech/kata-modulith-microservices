@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Singular;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import tech.hoppr.modulith.shared.CustomerId;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -28,6 +29,7 @@ public final class Order {
 	private final List<OrderEvent> occurredEvents = new ArrayList<>();
 
 	private final OrderId id;
+	private final CustomerId customerId;
 	@Singular
 	private final List<Item> items;
 	private final Instant placedAt;
@@ -36,6 +38,7 @@ public final class Order {
 	private Order(OrderPlaced event) {
 		this.occurredEvents.add(event);
 		this.id = event.orderId();
+		this.customerId = event.customerId();
 		this.items = List.copyOf(event.items());
 		this.placedAt = event.placedAt();
 	}
@@ -61,6 +64,7 @@ public final class Order {
 
 		OrderCancelled event = OrderCancelled.builder()
 			.orderId(id)
+			.customerId(customerId)
 			.cancelledAt(cancelledAt)
 			.build();
 
@@ -75,11 +79,17 @@ public final class Order {
 	public static class CreateBuilder {
 
 		private OrderId id;
+		private CustomerId customerId;
 		private List<Item> items = new ArrayList<>();
 		private Instant placedAt;
 
 		public CreateBuilder id(OrderId id) {
 			this.id = id;
+			return this;
+		}
+
+		public CreateBuilder customerId(CustomerId customerId) {
+			this.customerId = customerId;
 			return this;
 		}
 
@@ -96,6 +106,7 @@ public final class Order {
 		public Order build() {
 			return new Order(OrderPlaced.builder()
 				.orderId(id)
+				.customerId(customerId)
 				.items(items)
 				.placedAt(placedAt)
 				.build());

@@ -6,6 +6,7 @@ import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.shared.CustomerId;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
@@ -27,6 +28,7 @@ public class DbOrderRepository implements OrderRepository {
 	private Order toOrder(OrderEntity entity) {
 		return Order.builder()
 			.id(OrderId.of(entity.getId()))
+			.customerId(CustomerId.of(entity.getCustomerId()))
 			.items(entity.getItems().stream()
 				.map(this::toItem)
 				.toList())
@@ -51,10 +53,9 @@ public class DbOrderRepository implements OrderRepository {
 	}
 
 	private OrderEntity toEntity(Order order) {
-		String orderId = order.id().value();
-
 		return OrderEntity.builder()
-			.id(orderId)
+			.id(order.id().value())
+			.customerId(order.customerId().value())
 			.items(order.items().stream()
 				.map(this::toItemEntity)
 				.toList())

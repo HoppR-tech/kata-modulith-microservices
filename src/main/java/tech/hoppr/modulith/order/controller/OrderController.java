@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.service.OrderService;
+import tech.hoppr.modulith.shared.CustomerId;
 
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class OrderController {
 	@PostMapping("/place")
 	@ResponseStatus(code = ACCEPTED)
 	public PlaceOrderResponse placeOrder(@RequestBody @Valid PlaceOrderRequest request) {
+		CustomerId customerId = CustomerId.of(request.customerId());
 		List<Item> items = request.toDomain();
-		OrderId orderId = orderService.placeOrder(items);
+		OrderId orderId = orderService.placeOrder(customerId, items);
 		return new PlaceOrderResponse(orderId.value());
 	}
 

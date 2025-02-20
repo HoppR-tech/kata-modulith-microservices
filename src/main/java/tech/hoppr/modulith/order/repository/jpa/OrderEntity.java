@@ -29,6 +29,9 @@ public class OrderEntity {
 	@EqualsAndHashCode.Include
 	private String id;
 
+	@Column(name = "customer_id")
+	private String customerId;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<OrderItemEntity> items;
@@ -42,11 +45,13 @@ public class OrderEntity {
 	@Builder(toBuilder = true)
 	public OrderEntity(
 		String id,
+		String customerId,
 		List<OrderItemEntity> items,
 		Timestamp placedAt,
 		Timestamp cancelledAt
 	) {
 		this.id = id;
+		this.customerId = customerId;
 		this.items = items == null
 			? List.of()
 			: items.stream()
