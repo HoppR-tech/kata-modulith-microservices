@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.TestcontainersConfiguration;
-import tech.hoppr.modulith.order.model.Item;
+import tech.hoppr.modulith.shared.Item;
 import tech.hoppr.modulith.inventory.model.Products;
 import tech.hoppr.modulith.inventory.model.Reservation;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;

@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.order.model;
+package tech.hoppr.modulith.shared;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;

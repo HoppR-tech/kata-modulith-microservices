@@ -2,7 +2,7 @@ package tech.hoppr.modulith.inventory.repository.jpa;
 
 import lombok.RequiredArgsConstructor;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.inventory.model.Product;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.inventory.model.Products;

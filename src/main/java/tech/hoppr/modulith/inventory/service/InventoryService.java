@@ -2,8 +2,8 @@ package tech.hoppr.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import tech.hoppr.modulith.order.model.Item;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.Item;
+import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.inventory.model.Products;
 import tech.hoppr.modulith.inventory.model.Reservation;
 import tech.hoppr.modulith.inventory.repository.InventoryRepository;

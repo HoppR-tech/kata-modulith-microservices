@@ -2,7 +2,7 @@ package tech.hoppr.modulith.assertions;
 
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
-import tech.hoppr.modulith.order.model.Item;
+import tech.hoppr.modulith.shared.Item;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 

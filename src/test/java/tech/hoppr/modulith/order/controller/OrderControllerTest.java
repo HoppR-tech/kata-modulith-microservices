@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import tech.hoppr.modulith.TestcontainersConfiguration;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.inventory.model.Products;
 import tech.hoppr.modulith.shared.Quantity;
 import tech.hoppr.modulith.inventory.model.Reservation;

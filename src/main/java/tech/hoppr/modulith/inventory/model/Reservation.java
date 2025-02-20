@@ -1,7 +1,7 @@
 package tech.hoppr.modulith.inventory.model;
 
 import lombok.Builder;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 
 import java.util.stream.Stream;
 

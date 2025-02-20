@@ -1,9 +1,9 @@
 package tech.hoppr.modulith.order.service;
 
 import lombok.RequiredArgsConstructor;
-import tech.hoppr.modulith.order.model.Item;
+import tech.hoppr.modulith.shared.Item;
 import tech.hoppr.modulith.order.model.Order;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package tech.hoppr.modulith.order.controller;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import tech.hoppr.modulith.order.model.Item;
+import tech.hoppr.modulith.shared.Item;
 
 import java.util.List;
 

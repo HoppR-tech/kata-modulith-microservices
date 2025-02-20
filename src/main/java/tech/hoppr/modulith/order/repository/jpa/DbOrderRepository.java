@@ -2,9 +2,9 @@ package tech.hoppr.modulith.order.repository.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.order.model.Item;
+import tech.hoppr.modulith.shared.Item;
 import tech.hoppr.modulith.order.model.Order;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;

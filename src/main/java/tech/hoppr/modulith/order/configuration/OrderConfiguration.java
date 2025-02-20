@@ -3,7 +3,7 @@ package tech.hoppr.modulith.order.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.order.repository.jpa.OrderEntity;
 import tech.hoppr.modulith.order.repository.jpa.DbOrderRepository;
 import tech.hoppr.modulith.order.repository.OrderRepository;
