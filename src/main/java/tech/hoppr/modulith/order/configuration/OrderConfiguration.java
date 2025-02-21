@@ -3,6 +3,8 @@ package tech.hoppr.modulith.order.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.client.RestTemplate;
+
 import tech.hoppr.modulith.order.model.OrderId;
 import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.order.repository.jpa.DbOrderRepository;
@@ -15,6 +17,11 @@ import java.time.Clock;
 
 @Configuration
 public class OrderConfiguration {
+
+	@Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 	@Bean
 	OrderId.Provider orderIdProvider() {
