@@ -15,7 +15,9 @@ COPY ${SERVICE_PATH}/. .
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
+RUN apk add curl
 WORKDIR /app
 COPY --from=build /build/app/target/*.jar ./app.jar
+RUN curl -Lo otel-java-agent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-javaagent:otel-java-agent.jar", "-jar", "/app/app.jar"]

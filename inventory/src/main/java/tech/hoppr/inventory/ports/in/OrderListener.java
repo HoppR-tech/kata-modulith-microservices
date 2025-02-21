@@ -25,9 +25,8 @@ public class OrderListener {
 
 	@RabbitListener(queues = "order.placed")
 	public void handle(OrderPlaced event) {
-//		ReserveProducts reserveProducts = toCommand(event);
-//		inventoryService.handle(reserveProducts);
-		throw new RuntimeException("boom");
+		ReserveProducts reserveProducts = toCommand(event);
+		inventoryService.handle(reserveProducts);
 	}
 
 	private ReserveProducts toCommand(OrderPlaced event) {
