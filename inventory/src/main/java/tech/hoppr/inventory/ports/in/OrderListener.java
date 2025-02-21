@@ -18,25 +18,16 @@ public class OrderListener {
 
 	@RabbitListener(queues = "order.cancelled")
 	public void handle(OrderCancelled event) {
-		try {
-			log.info("Received order cancelled event: {}", event);
-			inventoryService.handle(CancelReservation.builder()
-				.orderId(OrderId.of(event.orderId()))
-				.build());
-		} catch (Exception e) {
-			log.error("Failed to cancel reservation", e);
-		}
+		inventoryService.handle(CancelReservation.builder()
+			.orderId(OrderId.of(event.orderId()))
+			.build());
 	}
 
 	@RabbitListener(queues = "order.placed")
 	public void handle(OrderPlaced event) {
-		try {
-			log.info("Received order placed event: {}", event);
-			ReserveProducts reserveProducts = toCommand(event);
-			inventoryService.handle(reserveProducts);
-		} catch (Exception e) {
-			log.error("Failed to reserve products", e);
-		}
+//		ReserveProducts reserveProducts = toCommand(event);
+//		inventoryService.handle(reserveProducts);
+		throw new RuntimeException("boom");
 	}
 
 	private ReserveProducts toCommand(OrderPlaced event) {
