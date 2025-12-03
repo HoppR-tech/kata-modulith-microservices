@@ -47,8 +47,13 @@ public class DbOrderRepository implements OrderRepository {
 
 	@Override
     public void save(Order order) {
-		OrderEntity entity = toEntity(order);
-		jpa.save(entity);
+		order.occurredEvents().forEach(event -> {
+			switch (event) {
+				case OrderPlaced e -> apply(e);
+				case OrderCanceled e -> apply(e);
+				default -> throw new IllegalArgumentException("Unexpected event type: " + event.getClass().getName());
+			}
+		});
 	}
 
 	@Override
@@ -56,26 +61,29 @@ public class DbOrderRepository implements OrderRepository {
 		jpa.deleteById(orderId.value());
 	}
 
-	private OrderEntity toEntity(Order order) {
-		String orderId = order.id().value();
-
-		return OrderEntity.builder()
-			.id(orderId)
-			.items(order.items().stream()
+	private void apply(OrderPlaced event) {
+		OrderEntity entity = OrderEntity.builder()
+			.id(event.orderId().value())
+			.items(event.items().stream()
 				.map(this::toItemEntity)
 				.toList())
-			.placedAt(order.placedAt()
+			.placedAt(event.placedAt()
 				.toEpochMilli())
-			.canceledAt(order.canceledAt()
-				.map(Instant::toEpochMilli)
-				.orElse(null))
+			.build();
+
+		jpa.save(entity);
+	}
+
+	private OrderItemEntity toItemEntity(OrderPlaced.Item item) {
+		return OrderItemEntity.builder()
+			.productRef(item.productRef().value())
+			.quantity(item.quantity().value())
 			.build();
 	}
 
-	private OrderItemEntity toItemEntity(Item item) {
-		return OrderItemEntity.builder()
-			.productRef(item.product().value())
-			.quantity(item.quantity().value())
-			.build();
+	private void apply(OrderCanceled event) {
+		OrderEntity entity = jpa.getReferenceById(event.orderId().value());
+		entity.setCanceledAt(event.canceledAt().toEpochMilli());
+		jpa.save(entity);
 	}
 }
