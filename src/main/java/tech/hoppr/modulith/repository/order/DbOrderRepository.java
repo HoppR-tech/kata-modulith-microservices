@@ -2,7 +2,6 @@ package tech.hoppr.modulith.repository.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.entity.EntityPersister;
 import tech.hoppr.modulith.entity.OrderEntity;
 import tech.hoppr.modulith.entity.OrderItemEntity;
 import tech.hoppr.modulith.model.Item;
@@ -10,8 +9,6 @@ import tech.hoppr.modulith.model.Order;
 import tech.hoppr.modulith.model.OrderId;
 import tech.hoppr.modulith.model.ProductRef;
 import tech.hoppr.modulith.model.Quantity;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DbOrderRepository implements OrderRepository {

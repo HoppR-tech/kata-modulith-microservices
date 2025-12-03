@@ -5,7 +5,6 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.entity.EntityPersister;
 import tech.hoppr.modulith.entity.InventoryEntity;
 import tech.hoppr.modulith.entity.OrderEntity;
 import tech.hoppr.modulith.model.OrderId;
@@ -22,11 +21,6 @@ public class ApplicationConfiguration {
 
 	@PersistenceContext
 	EntityManager em;
-
-	@Bean
-	EntityPersister entityPersister() {
-		return new EntityPersister(em);
-	}
 
 	@Bean
 	OrderId.Provider orderIdProvider() {
