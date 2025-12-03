@@ -7,6 +7,8 @@ import tech.hoppr.modulith.model.Product;
 import tech.hoppr.modulith.model.ProductRef;
 import tech.hoppr.modulith.model.Quantity;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class DbInventoryRepository implements InventoryRepository {
 
@@ -34,6 +36,11 @@ public class DbInventoryRepository implements InventoryRepository {
 			.build();
 
 		jpa.save(entity);
+	}
+
+	@Override
+	public List<InventoryEntity> getAll() {
+		return jpa.findAll();
 	}
 
 }

@@ -32,7 +32,7 @@ class OrderControllerTest {
 			.quantity(Quantity.of(10))
 			.build());
 
-		WebTestClient.ResponseSpec exchange = client.post()
+		WebTestClient.ResponseSpec orderResponse = client.post()
 			.uri("/orders/place")
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue("""
@@ -45,8 +45,28 @@ class OrderControllerTest {
 				""")
 			.exchange();
 
-		exchange.expectBody().isEmpty();
-		exchange.expectStatus().is2xxSuccessful();
+		orderResponse.expectBody().isEmpty();
+		orderResponse.expectStatus().is2xxSuccessful();
+
+		WebTestClient.ResponseSpec inventoryResponse = client.post()
+			.uri("/inventories/check")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue("""
+				
+				""")
+			.exchange();
+
+		inventoryResponse.expectStatus().is2xxSuccessful();
+		inventoryResponse.expectBody().json(
+			"""
+				{
+					"products": [
+						{ "ref": "1234", "quantity": 3},
+						{ "ref": "4567", "quantity": 7}
+					]
+				}
+				"""
+		);
 	}
 
 }
