@@ -23,8 +23,9 @@ public class TestableClock extends Clock {
 		throw new UnsupportedOperationException();
 	}
 
-	public void setTo(Instant now) {
+	public Instant setTo(Instant now) {
 		this.now = now;
+		return now;
 	}
 
 	public void reset() {

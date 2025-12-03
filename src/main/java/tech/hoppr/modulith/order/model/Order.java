@@ -13,6 +13,7 @@ import tech.hoppr.modulith.shared.OrderId;
 
 import java.time.Clock;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,10 @@ public final class Order {
 	}
 
 	public void cancel(Instant requestedAt) {
+		if (requestedAt.isAfter(placedAt.plus(14, ChronoUnit.DAYS))) {
+			throw new WithdrawalPeriodHasExpired(id);
+		}
+
 		OrderCanceled event = OrderCanceled.builder()
 			.orderId(id)
 			.canceledAt(requestedAt)
