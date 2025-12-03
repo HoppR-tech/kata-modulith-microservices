@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import tech.hoppr.modulith.model.Item;
-import tech.hoppr.modulith.model.Product;
-import tech.hoppr.modulith.model.ProductRef;
-import tech.hoppr.modulith.model.Quantity;
-import tech.hoppr.modulith.repository.inventory.InventoryRepository;
-import tech.hoppr.modulith.service.InventoryService;
+import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.inventory.service.InventoryService;
+import tech.hoppr.modulith.shared.Item;
+import tech.hoppr.modulith.inventory.model.Product;
+import tech.hoppr.modulith.inventory.model.ProductRef;
+import tech.hoppr.modulith.shared.Quantity;
 
 import java.util.List;
 

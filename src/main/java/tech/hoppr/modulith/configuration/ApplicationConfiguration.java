@@ -5,16 +5,16 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.entity.InventoryEntity;
-import tech.hoppr.modulith.entity.OrderEntity;
-import tech.hoppr.modulith.model.OrderId;
-import tech.hoppr.modulith.repository.inventory.DbInventoryRepository;
-import tech.hoppr.modulith.repository.inventory.InventoryRepository;
-import tech.hoppr.modulith.repository.order.DbOrderRepository;
-import tech.hoppr.modulith.repository.order.OrderRepository;
-import tech.hoppr.modulith.service.InventoryService;
-import tech.hoppr.modulith.service.OrderFactory;
-import tech.hoppr.modulith.service.OrderService;
+import tech.hoppr.modulith.inventory.entity.InventoryEntity;
+import tech.hoppr.modulith.inventory.repository.DbInventoryRepository;
+import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.inventory.service.InventoryService;
+import tech.hoppr.modulith.order.entity.OrderEntity;
+import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.order.repository.DbOrderRepository;
+import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.order.service.OrderFactory;
+import tech.hoppr.modulith.order.service.OrderService;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -38,7 +38,7 @@ public class ApplicationConfiguration {
 	}
 
     @Bean
-    InventoryService inventoryService(InventoryRepository inventoryRepository) {
+	InventoryService inventoryService(InventoryRepository inventoryRepository) {
         return new InventoryService(inventoryRepository);
     }
 

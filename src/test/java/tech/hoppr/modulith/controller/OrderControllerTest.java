@@ -6,10 +6,10 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import tech.hoppr.modulith.model.Product;
-import tech.hoppr.modulith.model.ProductRef;
-import tech.hoppr.modulith.model.Quantity;
-import tech.hoppr.modulith.repository.inventory.InventoryRepository;
+import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.inventory.model.Product;
+import tech.hoppr.modulith.inventory.model.ProductRef;
+import tech.hoppr.modulith.shared.Quantity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient

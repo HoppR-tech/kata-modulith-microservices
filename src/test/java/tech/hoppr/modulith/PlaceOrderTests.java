@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
-import tech.hoppr.modulith.model.Item;
-import tech.hoppr.modulith.model.Order;
-import tech.hoppr.modulith.model.OrderId;
-import tech.hoppr.modulith.model.ProductRef;
-import tech.hoppr.modulith.model.Quantity;
-import tech.hoppr.modulith.repository.order.OrderRepository;
-import tech.hoppr.modulith.service.InventoryService;
-import tech.hoppr.modulith.service.OrderService;
+import tech.hoppr.modulith.inventory.service.InventoryService;
+import tech.hoppr.modulith.shared.Item;
+import tech.hoppr.modulith.order.model.Order;
+import tech.hoppr.modulith.order.model.OrderId;
+import tech.hoppr.modulith.inventory.model.ProductRef;
+import tech.hoppr.modulith.shared.Quantity;
+import tech.hoppr.modulith.order.repository.OrderRepository;
+import tech.hoppr.modulith.order.service.OrderService;
 
 import java.util.List;
 
