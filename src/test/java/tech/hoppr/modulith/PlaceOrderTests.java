@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.model.Item;
@@ -29,7 +28,6 @@ import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
 
 @Transactional
 @SpringBootTest
-@Import(TestcontainersConfiguration.class)
 public class PlaceOrderTests {
 
 	@MockitoBean

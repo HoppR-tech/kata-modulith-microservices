@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import tech.hoppr.modulith.TestcontainersConfiguration;
 import tech.hoppr.modulith.model.Product;
 import tech.hoppr.modulith.model.ProductRef;
 import tech.hoppr.modulith.model.Quantity;
@@ -15,7 +13,6 @@ import tech.hoppr.modulith.repository.inventory.InventoryRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-@Import(TestcontainersConfiguration.class)
 class OrderControllerTest {
 
 	@Autowired
