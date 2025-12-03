@@ -66,6 +66,14 @@ public final class Order {
 		return canceledAt != null;
 	}
 
+	public List<OrderEvent> occurredEvents() {
+		return List.copyOf(occurredEvents);
+	}
+
+	public void commit() {
+		this.occurredEvents.clear();
+	}
+
 	public static PlaceBuilder place() {
 		return new PlaceBuilder();
 	}

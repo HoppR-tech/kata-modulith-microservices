@@ -54,6 +54,8 @@ public class DbOrderRepository implements OrderRepository {
 				default -> throw new IllegalArgumentException("Unexpected event type: " + event.getClass().getName());
 			}
 		});
+
+		order.commit();
 	}
 
 	@Override

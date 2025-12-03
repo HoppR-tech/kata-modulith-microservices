@@ -53,6 +53,8 @@ public class PlaceOrderTests {
 	}
 
 	private Order placeOrder() {
+		clock.setTo(Instant.ofEpochMilli(1000));
+
 		orderService.placeOrder(List.of(
 			Item.builder()
 				.product(PRODUCT_REF)
@@ -65,8 +67,6 @@ public class PlaceOrderTests {
 
 	@Test
 	void place_an_order() {
-		clock.setTo(Instant.ofEpochMilli(1000));
-
 		Order actualOrder = placeOrder();
 
 		assertThat(actualOrder).hasAnId();
@@ -107,6 +107,7 @@ public class PlaceOrderTests {
 					.quantity(Quantity.of(2))
 					.build()
 			))
+			.placedAt(Instant.ofEpochMilli(1000))
 			.build());
 	}
 

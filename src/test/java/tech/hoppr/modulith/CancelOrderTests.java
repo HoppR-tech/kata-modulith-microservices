@@ -67,6 +67,8 @@ public class CancelOrderTests {
 	}
 
 	private Order cancelOrder() {
+		clock.setTo(Instant.ofEpochMilli(1000));
+
 		orderService.cancelOrder(ORDER_ID);
 
 		return orders.getBy(ORDER_ID);
@@ -74,8 +76,6 @@ public class CancelOrderTests {
 
 	@Test
 	void cancel_an_order() {
-		clock.setTo(Instant.ofEpochMilli(1000));
-
 		Order actualOrder = cancelOrder();
 
 		assertThat(actualOrder)
@@ -90,6 +90,7 @@ public class CancelOrderTests {
 
 		assertThat(eventCaptor).hasCaptured(OrderCanceled.builder()
 			.orderId(ORDER_ID)
+			.canceledAt(Instant.ofEpochMilli(1000))
 			.build());
 	}
 
