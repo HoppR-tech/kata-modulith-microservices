@@ -8,6 +8,8 @@ import tech.hoppr.modulith.order.service.OrderFactory;
 import tech.hoppr.modulith.order.service.OrderService;
 import tech.hoppr.modulith.shared.MessageEmitter;
 
+import java.time.Clock;
+
 @Configuration
 public class OrderConfiguration {
 
@@ -22,8 +24,8 @@ public class OrderConfiguration {
 	}
 
 	@Bean
-	OrderService orderService(OrderFactory factory, OrderRepository orders, MessageEmitter messageEmitter) {
-		return new OrderService(factory, orders, messageEmitter);
+	OrderService orderService(OrderFactory factory, OrderRepository orders, Clock clock, MessageEmitter messageEmitter) {
+		return new OrderService(factory, orders, clock, messageEmitter);
 	}
 
 }

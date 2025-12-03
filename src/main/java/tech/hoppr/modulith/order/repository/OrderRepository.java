@@ -8,4 +8,6 @@ public interface OrderRepository {
 	Order getBy(OrderId orderId);
 
     void save(Order order);
+
+	void remove(OrderId orderId);
 }

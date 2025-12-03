@@ -4,9 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
+import tech.hoppr.modulith.order.published.OrderCanceled;
+import tech.hoppr.modulith.order.published.OrderPlaced;
 import tech.hoppr.modulith.shared.OrderId;
 import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
+
+import java.time.Instant;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DbOrderRepository implements OrderRepository {
@@ -26,6 +31,9 @@ public class DbOrderRepository implements OrderRepository {
 			.items(entity.getItems().stream()
 				.map(this::toItem)
 				.toList())
+			.canceledAt(Optional.ofNullable(entity.getCanceledAt())
+				.map(Instant::ofEpochMilli)
+				.orElse(null))
 			.build();
 	}
 
@@ -42,6 +50,11 @@ public class DbOrderRepository implements OrderRepository {
 		jpa.save(entity);
 	}
 
+	@Override
+	public void remove(OrderId orderId) {
+		jpa.deleteById(orderId.value());
+	}
+
 	private OrderEntity toEntity(Order order) {
 		String orderId = order.id().value();
 
@@ -50,6 +63,9 @@ public class DbOrderRepository implements OrderRepository {
 			.items(order.items().stream()
 				.map(this::toItemEntity)
 				.toList())
+			.canceledAt(order.canceledAt()
+				.map(Instant::toEpochMilli)
+				.orElse(null))
 			.build();
 	}
 

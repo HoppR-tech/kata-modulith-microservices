@@ -6,6 +6,8 @@ import org.assertj.core.api.ListAssert;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.model.Order;
 
+import java.time.Instant;
+
 @RequiredArgsConstructor
 public class OrderAssertions {
 
@@ -16,6 +18,16 @@ public class OrderAssertions {
 		return this;
 	}
 
+	public OrderAssertions isCanceled() {
+		Assertions.assertThat(order.isCanceled()).isTrue();
+		return this;
+	}
+
+	public OrderAssertions isCanceledAt(Instant expected) {
+		Assertions.assertThat(order.canceledAt()).contains(expected);
+		return this;
+	}
+
 	public ListAssert<Item> items() {
 		return Assertions.assertThat(order.items());
 	}
@@ -23,5 +35,4 @@ public class OrderAssertions {
 	public static OrderAssertions assertThat(Order order) {
 		return new OrderAssertions(order);
 	}
-
 }

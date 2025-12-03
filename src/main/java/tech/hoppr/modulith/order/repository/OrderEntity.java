@@ -24,13 +24,14 @@ import java.util.List;
 class OrderEntity {
 
 	@Builder(toBuilder = true)
-	public OrderEntity(String id, List<OrderItemEntity> items) {
+	public OrderEntity(String id, List<OrderItemEntity> items, Long canceledAt) {
 		this.id = id;
 		this.items = items == null
 			? List.of()
 			: items.stream()
-			.map(item -> item.withOrder(this))
+			.map(item -> item.withOrderId(id))
 			.toList();
+		this.canceledAt = canceledAt;
 	}
 
 	@Id
@@ -38,8 +39,11 @@ class OrderEntity {
 	@EqualsAndHashCode.Include
 	private String id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id")
-    private List<OrderItemEntity> items;
+	private List<OrderItemEntity> items;
+
+	@Column(name = "canceled_at")
+	private Long canceledAt;
 
 }

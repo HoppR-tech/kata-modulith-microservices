@@ -3,11 +3,14 @@ package tech.hoppr.modulith.order.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import tech.hoppr.modulith.order.model.Order;
+import tech.hoppr.modulith.order.published.OrderCanceled;
 import tech.hoppr.modulith.order.published.OrderPlaced;
 import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.shared.MessageEmitter;
+import tech.hoppr.modulith.shared.OrderId;
 
+import java.time.Clock;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,6 +18,7 @@ public class OrderService {
 
 	private final OrderFactory factory;
 	private final OrderRepository orders;
+	private final Clock clock;
 	private final MessageEmitter emitter;
 
 	@Transactional
@@ -33,4 +37,14 @@ public class OrderService {
 			.build());
 	}
 
+	@Transactional
+	public void cancelOrder(OrderId orderId) {
+		Order order = orders.getBy(orderId);
+		order.cancel(clock.instant());
+		orders.save(order);
+
+		emitter.emit(OrderCanceled.builder()
+			.orderId(orderId)
+			.build());
+	}
 }

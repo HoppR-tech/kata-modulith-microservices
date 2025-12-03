@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.order.service.OrderService;
+import tech.hoppr.modulith.shared.OrderId;
 
 import java.util.List;
 
@@ -23,9 +24,15 @@ public class OrderController {
 
 	@PostMapping("/place")
 	@ResponseStatus(code = ACCEPTED)
-	public void placeOrder(@RequestBody @Valid PlaceOrderDto request) {
+	public void place(@RequestBody @Valid PlaceOrderDto request) {
 		List<Item> items = request.toDomain();
 		orderService.placeOrder(items);
+	}
+
+	@PostMapping("/cancel")
+	@ResponseStatus(code = ACCEPTED)
+	public void cancel(@RequestBody @Valid CancelOrderDto request) {
+		orderService.cancelOrder(OrderId.of(request.orderId()));
 	}
 
 }
