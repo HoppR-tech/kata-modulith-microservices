@@ -28,6 +28,11 @@ public class OrderAssertions {
 		return this;
 	}
 
+	public OrderAssertions isPlacedAt(Instant expected) {
+		Assertions.assertThat(order.placedAt()).isEqualTo(expected);
+		return this;
+	}
+
 	public ListAssert<Item> items() {
 		return Assertions.assertThat(order.items());
 	}

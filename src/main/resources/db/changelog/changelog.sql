@@ -3,6 +3,7 @@
 CREATE TABLE "orders"
 (
 	"id" VARCHAR(26) PRIMARY KEY,
+	"placed_at" INTEGER,
 	"canceled_at" INTEGER
 );
 

@@ -52,7 +52,7 @@ public class CancelOrderTests {
 		when(idProvider.get())
 			.thenReturn(ORDER_ID);
 
-		orderRepository.save(Order.builder()
+		orderRepository.save(Order.place()
 			.id(ORDER_ID)
 			.items(List.of(Item.builder()
 				.product(PRODUCT_REF)

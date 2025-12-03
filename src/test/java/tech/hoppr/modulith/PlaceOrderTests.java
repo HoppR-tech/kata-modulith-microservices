@@ -15,7 +15,10 @@ import tech.hoppr.modulith.order.repository.OrderRepository;
 import tech.hoppr.modulith.order.service.OrderService;
 import tech.hoppr.modulith.order.model.Item;
 import tech.hoppr.modulith.shared.Quantity;
+import tech.hoppr.modulith.testing.time.AutoConfigureTimeControl;
+import tech.hoppr.modulith.testing.time.TestableClock;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -27,6 +30,7 @@ import static tech.hoppr.modulith.fixtures.ApplicationFixtures.PRODUCT_REF;
 
 @Transactional
 @SpringBootTest
+@AutoConfigureTimeControl
 public class PlaceOrderTests {
 
 	@MockitoBean
@@ -39,6 +43,8 @@ public class PlaceOrderTests {
 	OrderRepository orders;
 	@Autowired
 	EventCaptor eventCaptor;
+	@Autowired
+	TestableClock clock;
 
 	@BeforeEach
 	void setUp() {
@@ -59,6 +65,8 @@ public class PlaceOrderTests {
 
 	@Test
 	void place_an_order() {
+		clock.setTo(Instant.ofEpochMilli(1000));
+
 		Order actualOrder = placeOrder();
 
 		assertThat(actualOrder).hasAnId();
@@ -67,6 +75,8 @@ public class PlaceOrderTests {
 			.satisfies(item -> assertThat(item)
 				.hasProductRef(ProductRef.of("123"))
 				.hasQuantity(Quantity.of(2)));
+
+		assertThat(actualOrder).isPlacedAt(Instant.ofEpochMilli(1000));
 	}
 
 //	@Test

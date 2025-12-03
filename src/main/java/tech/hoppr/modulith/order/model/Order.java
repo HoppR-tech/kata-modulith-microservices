@@ -74,7 +74,7 @@ public final class Order {
 
 		private OrderId id;
 		private List<Item> items = new ArrayList<>();
-		private Instant requestedAt;
+		private Instant requestedAt = Instant.now(Clock.systemUTC());
 
 		public PlaceBuilder id(OrderId id) {
 			this.id = id;
