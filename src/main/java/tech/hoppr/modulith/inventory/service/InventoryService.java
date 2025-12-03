@@ -14,7 +14,7 @@ public class InventoryService {
     public void accept(Decrement command) {
 		command.productsToDecrement().forEach(productToDecrement -> {
 			Product product = inventories.getBy(productToDecrement.ref());
-			product.decrement(product.quantity());
+			product.decrement(productToDecrement.quantity());
 			inventories.save(product);
 		});
     }
