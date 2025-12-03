@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.inventory.model;
+package tech.hoppr.modulith.shared;
 
 public record ProductRef(String value) {
 

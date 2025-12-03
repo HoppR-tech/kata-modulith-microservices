@@ -3,7 +3,7 @@ package tech.hoppr.modulith.inventory.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.hoppr.modulith.inventory.model.Product;
-import tech.hoppr.modulith.inventory.model.ProductRef;
+import tech.hoppr.modulith.shared.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
 
 @RequiredArgsConstructor

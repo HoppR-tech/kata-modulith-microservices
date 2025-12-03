@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import tech.hoppr.modulith.shared.Item;
+import tech.hoppr.modulith.shared.OrderId;
 
 import java.util.List;
 
