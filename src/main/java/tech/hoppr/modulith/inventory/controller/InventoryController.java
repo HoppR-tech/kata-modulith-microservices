@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import tech.hoppr.modulith.inventory.repository.InventoryRepository;
+import tech.hoppr.modulith.inventory.repository.InventoryQueries;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class InventoryController {
 
-	private final InventoryRepository inventoryRepository;
+	private final InventoryQueries queries;
 
 	@PostMapping("/check")
 	@ResponseStatus(code = OK)
 	public CheckOutput placeOrder() {
-		List<CheckOutput.ProductDto> products = inventoryRepository.getAll().stream()
-			.map(entity -> new CheckOutput.ProductDto(entity.getProductRef(), entity.getQuantity()))
+		List<CheckOutput.ProductDto> products = queries.check().stream()
+			.map(entity -> new CheckOutput.ProductDto(entity.productRef(), entity.quantity()))
 			.toList();
 
 		return new CheckOutput(products);

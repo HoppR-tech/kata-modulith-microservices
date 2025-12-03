@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.order.entity;
+package tech.hoppr.modulith.order.repository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ import lombok.With;
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(exclude = "order")
-public class OrderItemEntity {
+class OrderItemEntity {
 
     @Id
     @ManyToOne

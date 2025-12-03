@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.inventory.entity;
+package tech.hoppr.modulith.inventory.repository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
-public class InventoryEntity {
+class InventoryEntity {
 
     @Id
     @Column(name = "product_ref")

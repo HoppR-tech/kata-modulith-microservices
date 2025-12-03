@@ -1,4 +1,4 @@
-package tech.hoppr.modulith.order.entity;
+package tech.hoppr.modulith.order.repository;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Getter
-public class OrderEntity {
+class OrderEntity {
 
 	@Builder(toBuilder = true)
 	public OrderEntity(String id, List<OrderItemEntity> items) {

@@ -2,12 +2,9 @@ package tech.hoppr.modulith.inventory.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.hoppr.modulith.inventory.entity.InventoryEntity;
 import tech.hoppr.modulith.inventory.model.Product;
 import tech.hoppr.modulith.inventory.model.ProductRef;
 import tech.hoppr.modulith.shared.Quantity;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class DbInventoryRepository implements InventoryRepository {
@@ -36,11 +33,6 @@ public class DbInventoryRepository implements InventoryRepository {
 			.build();
 
 		jpa.save(entity);
-	}
-
-	@Override
-	public List<InventoryEntity> getAll() {
-		return jpa.findAll();
 	}
 
 }
