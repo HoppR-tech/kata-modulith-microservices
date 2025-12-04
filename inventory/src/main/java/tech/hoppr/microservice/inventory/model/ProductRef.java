@@ -1,4 +1,4 @@
-package tech.hoppr.microservice.inventory.shared;
+package tech.hoppr.microservice.inventory.model;
 
 public record ProductRef(String value) {
 

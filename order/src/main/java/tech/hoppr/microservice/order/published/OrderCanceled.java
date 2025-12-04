@@ -1,8 +1,7 @@
 package tech.hoppr.microservice.order.published;
 
 import lombok.Builder;
-import tech.hoppr.microservice.order.published.OrderEvent;
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 import java.time.Instant;
 

@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import tech.hoppr.microservice.inventory.shared.ProductRef;
-import tech.hoppr.microservice.inventory.shared.Quantity;
 
 @Builder
 @AllArgsConstructor

@@ -3,7 +3,7 @@ package tech.hoppr.microservice.order.service;
 import lombok.RequiredArgsConstructor;
 import tech.hoppr.microservice.order.model.Item;
 import tech.hoppr.microservice.order.model.Order;
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 import java.time.Clock;
 import java.util.List;

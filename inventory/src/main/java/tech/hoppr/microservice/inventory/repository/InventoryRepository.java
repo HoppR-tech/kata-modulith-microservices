@@ -1,7 +1,7 @@
 package tech.hoppr.microservice.inventory.repository;
 
 import tech.hoppr.microservice.inventory.model.Product;
-import tech.hoppr.microservice.inventory.shared.ProductRef;
+import tech.hoppr.microservice.inventory.model.ProductRef;
 
 public interface InventoryRepository {
 

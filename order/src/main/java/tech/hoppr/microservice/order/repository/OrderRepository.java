@@ -1,7 +1,7 @@
 package tech.hoppr.microservice.order.repository;
 
 import tech.hoppr.microservice.order.model.Order;
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 public interface OrderRepository {
 

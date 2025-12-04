@@ -11,9 +11,9 @@ import tech.hoppr.microservice.order.model.Order;
 import tech.hoppr.microservice.order.published.OrderPlaced;
 import tech.hoppr.microservice.order.repository.OrderRepository;
 import tech.hoppr.microservice.order.service.OrderService;
-import tech.hoppr.microservice.order.shared.OrderId;
-import tech.hoppr.microservice.order.shared.ProductRef;
-import tech.hoppr.microservice.order.shared.Quantity;
+import tech.hoppr.microservice.order.model.OrderId;
+import tech.hoppr.microservice.order.model.ProductRef;
+import tech.hoppr.microservice.order.model.Quantity;
 import tech.hoppr.microservice.order.testing.time.AutoConfigureTimeControl;
 import tech.hoppr.microservice.order.testing.time.TestableClock;
 

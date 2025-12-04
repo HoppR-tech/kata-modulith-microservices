@@ -3,10 +3,8 @@ package tech.hoppr.microservice.inventory.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import tech.hoppr.microservice.inventory.model.Product;
-import tech.hoppr.microservice.inventory.repository.InventoryEntity;
-import tech.hoppr.microservice.inventory.repository.InventoryRepository;
-import tech.hoppr.microservice.inventory.shared.ProductRef;
-import tech.hoppr.microservice.inventory.shared.Quantity;
+import tech.hoppr.microservice.inventory.model.ProductRef;
+import tech.hoppr.microservice.inventory.model.Quantity;
 
 @RequiredArgsConstructor
 public class DbInventoryRepository implements InventoryRepository {

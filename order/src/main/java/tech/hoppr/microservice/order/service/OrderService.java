@@ -7,7 +7,7 @@ import tech.hoppr.microservice.order.model.Order;
 import tech.hoppr.microservice.order.published.OrderEvent;
 import tech.hoppr.microservice.order.repository.OrderRepository;
 import tech.hoppr.microservice.order.shared.MessageEmitter;
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 import java.time.Clock;
 import java.time.Instant;

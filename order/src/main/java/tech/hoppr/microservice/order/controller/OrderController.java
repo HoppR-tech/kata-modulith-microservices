@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import tech.hoppr.microservice.order.controller.CancelOrderDto;
-import tech.hoppr.microservice.order.controller.PlaceOrderDto;
 import tech.hoppr.microservice.order.model.Item;
 import tech.hoppr.microservice.order.service.OrderService;
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 import java.util.List;
 

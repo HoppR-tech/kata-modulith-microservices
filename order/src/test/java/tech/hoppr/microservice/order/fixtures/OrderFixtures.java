@@ -1,7 +1,7 @@
 package tech.hoppr.microservice.order.fixtures;
 
-import tech.hoppr.microservice.order.shared.OrderId;
-import tech.hoppr.microservice.order.shared.ProductRef;
+import tech.hoppr.microservice.order.model.OrderId;
+import tech.hoppr.microservice.order.model.ProductRef;
 
 public class OrderFixtures {
 

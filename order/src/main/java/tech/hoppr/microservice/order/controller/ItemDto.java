@@ -3,8 +3,8 @@ package tech.hoppr.microservice.order.controller;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import tech.hoppr.microservice.order.model.Item;
-import tech.hoppr.microservice.order.shared.ProductRef;
-import tech.hoppr.microservice.order.shared.Quantity;
+import tech.hoppr.microservice.order.model.ProductRef;
+import tech.hoppr.microservice.order.model.Quantity;
 
 public record ItemDto(
 	@NotBlank String productRef,

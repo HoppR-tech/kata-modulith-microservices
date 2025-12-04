@@ -3,8 +3,8 @@ package tech.hoppr.microservice.order.assertions;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import tech.hoppr.microservice.order.model.Item;
-import tech.hoppr.microservice.order.shared.ProductRef;
-import tech.hoppr.microservice.order.shared.Quantity;
+import tech.hoppr.microservice.order.model.ProductRef;
+import tech.hoppr.microservice.order.model.Quantity;
 
 @RequiredArgsConstructor
 public class ItemAssertions {

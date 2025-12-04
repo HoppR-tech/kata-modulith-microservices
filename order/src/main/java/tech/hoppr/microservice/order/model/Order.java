@@ -6,12 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import tech.hoppr.microservice.order.model.Item;
-import tech.hoppr.microservice.order.model.WithdrawalPeriodHasExpired;
 import tech.hoppr.microservice.order.published.OrderCanceled;
 import tech.hoppr.microservice.order.published.OrderEvent;
 import tech.hoppr.microservice.order.published.OrderPlaced;
-import tech.hoppr.microservice.order.shared.OrderId;
 
 import java.time.Clock;
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package tech.hoppr.microservice.order.shared;
+package tech.hoppr.microservice.order.model;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;

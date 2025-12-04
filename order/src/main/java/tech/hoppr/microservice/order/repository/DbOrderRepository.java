@@ -6,9 +6,9 @@ import tech.hoppr.microservice.order.model.Item;
 import tech.hoppr.microservice.order.model.Order;
 import tech.hoppr.microservice.order.published.OrderCanceled;
 import tech.hoppr.microservice.order.published.OrderPlaced;
-import tech.hoppr.microservice.order.shared.OrderId;
-import tech.hoppr.microservice.order.shared.ProductRef;
-import tech.hoppr.microservice.order.shared.Quantity;
+import tech.hoppr.microservice.order.model.OrderId;
+import tech.hoppr.microservice.order.model.ProductRef;
+import tech.hoppr.microservice.order.model.Quantity;
 
 import java.time.Instant;
 import java.util.Optional;

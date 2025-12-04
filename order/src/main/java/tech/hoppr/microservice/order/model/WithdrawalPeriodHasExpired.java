@@ -1,7 +1,6 @@
 package tech.hoppr.microservice.order.model;
 
 import lombok.Getter;
-import tech.hoppr.microservice.order.shared.OrderId;
 
 public class WithdrawalPeriodHasExpired extends OrderException {
 

@@ -1,6 +1,6 @@
 package tech.hoppr.microservice.order.published;
 
-import tech.hoppr.microservice.order.shared.OrderId;
+import tech.hoppr.microservice.order.model.OrderId;
 
 public interface OrderEvent {
 	OrderId orderId();

@@ -1,9 +1,9 @@
 package tech.hoppr.microservice.order.published;
 
 import lombok.Builder;
-import tech.hoppr.microservice.order.shared.OrderId;
-import tech.hoppr.microservice.order.shared.ProductRef;
-import tech.hoppr.microservice.order.shared.Quantity;
+import tech.hoppr.microservice.order.model.OrderId;
+import tech.hoppr.microservice.order.model.ProductRef;
+import tech.hoppr.microservice.order.model.Quantity;
 
 import java.time.Instant;
 import java.util.List;

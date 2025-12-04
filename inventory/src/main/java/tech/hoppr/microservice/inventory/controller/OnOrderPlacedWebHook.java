@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tech.hoppr.microservice.inventory.service.Decrement;
 import tech.hoppr.microservice.inventory.service.InventoryService;
-import tech.hoppr.microservice.inventory.shared.ProductRef;
-import tech.hoppr.microservice.inventory.shared.Quantity;
+import tech.hoppr.microservice.inventory.model.ProductRef;
+import tech.hoppr.microservice.inventory.model.Quantity;
 
 import java.util.List;
 

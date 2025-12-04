@@ -1,8 +1,8 @@
 package tech.hoppr.microservice.inventory.service;
 
 import lombok.Builder;
-import tech.hoppr.microservice.inventory.shared.ProductRef;
-import tech.hoppr.microservice.inventory.shared.Quantity;
+import tech.hoppr.microservice.inventory.model.ProductRef;
+import tech.hoppr.microservice.inventory.model.Quantity;
 
 import java.util.List;
 

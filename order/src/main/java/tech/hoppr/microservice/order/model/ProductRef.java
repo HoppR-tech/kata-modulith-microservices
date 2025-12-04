@@ -1,4 +1,4 @@
-package tech.hoppr.microservice.order.shared;
+package tech.hoppr.microservice.order.model;
 
 public record ProductRef(String value) {
 

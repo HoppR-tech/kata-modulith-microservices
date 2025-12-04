@@ -3,7 +3,7 @@ package tech.hoppr.microservice.inventory.assertions;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import tech.hoppr.microservice.inventory.model.Product;
-import tech.hoppr.microservice.inventory.shared.Quantity;
+import tech.hoppr.microservice.inventory.model.Quantity;
 
 @RequiredArgsConstructor
 public class ProductAssertions {
