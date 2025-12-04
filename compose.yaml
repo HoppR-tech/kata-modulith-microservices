@@ -68,8 +68,8 @@ services:
             POSTGRES_USER: appuser
             POSTGRES_PASSWORD: password
             POSTGRES_DB: order_db
-        volumes:
-            - order-db-data:/var/lib/postgresql/data
+#        volumes:
+#            - order-db-data:/var/lib/postgresql/data
         networks:
             - app-network
 
@@ -107,8 +107,8 @@ services:
             POSTGRES_USER: appuser
             POSTGRES_PASSWORD: password
             POSTGRES_DB: inventory_db
-        volumes:
-            - inventory-db-data:/var/lib/postgresql/data
+#        volumes:
+#            - inventory-db-data:/var/lib/postgresql/data
         networks:
             - app-network
 
