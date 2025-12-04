@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.wiremock.spring.EnableWireMock;
-import tech.hoppr.microservice.order.model.Item;
 import tech.hoppr.microservice.order.model.Quantity;
 import tech.hoppr.microservice.order.published.OrderPlaced;
 import tech.hoppr.microservice.order.shared.MessageEmitter;
-import tech.hoppr.microservice.order.testing.time.AutoConfigureTimeControl;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ import static tech.hoppr.microservice.order.fixtures.OrderFixtures.ORDER_ID;
 import static tech.hoppr.microservice.order.fixtures.OrderFixtures.PRODUCT_REF;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(properties = "partner.inventory.base-url=${wiremock.server.baseUrl}")
 @EnableWireMock
 public class DecrementInventoryOnOrderPlacedTest {
 
@@ -41,13 +39,14 @@ public class DecrementInventoryOnOrderPlacedTest {
 			.items(List.of(OrderPlaced.Item.builder()
 				.productRef(PRODUCT_REF)
 				.quantity(Quantity.of(10))
-				.build())));
+				.build()))
+			.build());
 
 		verify(postRequestedFor(urlPathEqualTo("/inventories/on-order-placed"))
 			.withRequestBody(equalToJson("""
 				{
 					"orderId": "FR001",
-					"items": [{ "productRef": "1234", "quantity": 10 }]
+					"items": [{ "productRef": "123", "quantity": 10 }]
 				}
 				""")));
 
